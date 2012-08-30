@@ -1,0 +1,5 @@
+com.netflix.appinfo
+com.netflix.discovery
+com.netflix.discovery.converters
+com.netflix.discovery.provider
+com.netflix.discovery.shared

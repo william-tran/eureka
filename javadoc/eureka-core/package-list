@@ -1,0 +1,5 @@
+com.netflix.eureka
+com.netflix.eureka.cluster
+com.netflix.eureka.lease
+com.netflix.eureka.resources
+com.netflix.eureka.util
