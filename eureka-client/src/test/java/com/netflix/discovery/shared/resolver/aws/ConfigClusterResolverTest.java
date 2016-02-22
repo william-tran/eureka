@@ -34,6 +34,9 @@ public class ConfigClusterResolverTest {
     private final List<String> endpointsE = Arrays.asList(
             "http://1.1.3.1:8000/eureka/v2/"
     );
+    private final List<String> endpointsF = Arrays.asList(
+            "https://1.1.4.1:8443/eureka/v2/"
+    );
     private ConfigClusterResolver resolver;
 
     @Before
@@ -56,5 +59,16 @@ public class ConfigClusterResolverTest {
     public void testReadFromConfig() {
         List<AwsEndpoint> endpoints = resolver.getClusterEndpoints();
         assertThat(endpoints.size(), equalTo(6));
+    }
+
+    @Test
+    public void testReadHttpsUrlFromConfig() {
+        when(clientConfig.getAvailabilityZones("us-east-1")).thenReturn(new String[]{"us-east-1f"});
+        when(clientConfig.getEurekaServerServiceUrls("us-east-1f")).thenReturn(endpointsF);     
+        
+        endpoints = resolver.getClusterEndpoints();
+        
+        assertThat(endpoints.size(), equalTo(1));
+        assertThat(endpoints.get(0).isSecure(), equalTo(true));
     }
 }
